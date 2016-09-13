@@ -1,0 +1,25 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Suntransfers\\BehatContext\\": "src/Suntransfers/BehatContext/"
+        }
+    },
+    "name": "jordigiros/MinkFieldRandomizer",
+    "description": "Random information generator for filling Behat/Mink/Selenium tests",
+    "authors": [
+        {
+            "name": "jordigiros",
+            "email": "jordigiros@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "behat/behat": "~3.0",
+        "behat/mink-extension": "dev-master",
+        "behat/mink-goutte-driver": "dev-master",
+        "behat/mink-selenium2-driver": "1.3.x"
+    }
+    "config": {
+        "bin-dir": "bin"
+    }
+}
