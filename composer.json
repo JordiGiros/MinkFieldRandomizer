@@ -1,7 +1,7 @@
 {
     "autoload": {
         "psr-4": {
-            "Suntransfers\\BehatContext\\": "src/Suntransfers/BehatContext/"
+            "MinkFieldRandomizer\\Filter\\": "src/MinkFieldRandomizer/Filter/"
         }
     },
     "name": "jordigiros/MinkFieldRandomizer",
