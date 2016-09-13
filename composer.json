@@ -4,7 +4,7 @@
             "MinkFieldRandomizer\\Filter\\": "src/MinkFieldRandomizer/Filter/"
         }
     },
-    "name": "jordigiros/MinkFieldRandomizer",
+    "name": "jordigiros/minkfieldrandomizer",
     "description": "Random information generator for filling Behat/Mink/Selenium tests",
     "authors": [
         {
