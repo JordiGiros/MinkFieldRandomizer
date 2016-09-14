@@ -1,9 +1,9 @@
 <?php
 
-namespace Model;
+namespace MinkFieldRandomizer\Model;
 
 use Exception;
-use Filter\FilterInterface;
+use MinkFieldRandomizer\Filter\FilterInterface;
 
 class RandomSurname implements FilterInterface
 {

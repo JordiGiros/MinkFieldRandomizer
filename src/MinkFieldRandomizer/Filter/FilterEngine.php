@@ -1,6 +1,6 @@
 <?php
 
-namespace Filter;
+namespace MinkFieldRandomizer\Filter;
 
 use Exception;
 

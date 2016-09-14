@@ -1,6 +1,6 @@
 <?php
 
-namespace Suntransfers\BehatContext\Context;
+namespace MinkFieldRandomizer\Context;
 
 use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Exception\ElementNotFoundException;
