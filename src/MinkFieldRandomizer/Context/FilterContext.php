@@ -122,7 +122,7 @@ trait FilterContext
     }
 
     /**
-     * @Then Fill :field with a existent loremipsum
+     * @Then Fill :field with an existent loremipsum
      * @param $field
      */
     public function fillFieldWithExistentLoremIpsum($field)
@@ -142,7 +142,7 @@ trait FilterContext
     }
 
     /**
-     * @Then Fill :field with a existent mail
+     * @Then Fill :field with an existent mail
      * @param $field
      */
     public function fillFieldWithExistentMail($field)
@@ -162,7 +162,7 @@ trait FilterContext
     }
 
     /**
-     * @Then Fill :field with a existent phone
+     * @Then Fill :field with an existent phone
      * @param $field
      */
     public function fillFieldWithExistentPhone($field)
@@ -182,7 +182,7 @@ trait FilterContext
     }
 
     /**
-     * @Then Fill :field with a existent name
+     * @Then Fill :field with an existent name
      * @param $field
      */
     public function fillFieldWithExistentName($field)
@@ -202,7 +202,7 @@ trait FilterContext
     }
 
     /**
-     * @Then Fill :field with a existent surname
+     * @Then Fill :field with an existent surname
      * @param $field
      */
     public function fillFieldWithExistentSurname($field)
@@ -222,7 +222,7 @@ trait FilterContext
     }
 
     /**
-     * @Then Fill :field with a existent number
+     * @Then Fill :field with an existent number
      * @param $field
      */
     public function fillFieldWithExistentNumber($field)
@@ -242,7 +242,7 @@ trait FilterContext
     }
 
     /**
-     * @Then Fill :field with a existent text
+     * @Then Fill :field with an existent text
      * @param $field
      */
     public function fillFieldWithExistentText($field)
