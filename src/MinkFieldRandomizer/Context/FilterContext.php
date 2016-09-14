@@ -278,6 +278,7 @@ trait FilterContext
     }
 
     /**
+     * @Then Fill :field with :value
      * @param $field
      * @param $value
      */
@@ -292,7 +293,7 @@ trait FilterContext
     public function fillFilteredFields(TableNode $fields)
     {
         foreach ($fields->getRowsHash() as $field => $value) {
-            $this->fillField($field, $value);
+            $this->fillRandomField($field, $value);
         }
     }
 
