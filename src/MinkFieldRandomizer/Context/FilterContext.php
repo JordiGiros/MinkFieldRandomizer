@@ -4,7 +4,7 @@ namespace MinkFieldRandomizer\Context;
 
 use Behat\Gherkin\Node\TableNode;
 use Behat\Mink\Exception\ElementNotFoundException;
-use Filter\FilterEngine;
+use MinkFieldRandomizer\Filter\FilterEngine;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Context\SnippetAcceptingContext;
