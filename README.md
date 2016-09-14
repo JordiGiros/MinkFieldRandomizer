@@ -1,6 +1,8 @@
 # MinkFieldRandomizer
 MinkFieldRandomizer is a random (with sense) information generator for filling browser form fields in Behat Mink Selenium tests. It brings the option to run your tests in a more realistic way changing the information you use to fill in the forms in every test you run.
 
+Status: v1.0. Working.
+
 ## Add it using composer
 Add the next line in require-dev to your composer.json file:
 "jordigiros/MinkFieldRandomizer": "dev-master"
