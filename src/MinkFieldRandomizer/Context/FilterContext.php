@@ -8,10 +8,13 @@ use MinkFieldRandomizer\Filter\FilterEngine;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\MinkExtension\Context\MinkContext;
 use Exception;
 
-class FilterContext implements Context
+trait FilterContext
 {
+
+    private $loremipsum;
 
     private $mail;
 
@@ -21,17 +24,19 @@ class FilterContext implements Context
 
     private $surname;
 
-    private $featureContext;
+    private $number;
 
-    /**
-     * @BeforeScenario
-     * @param BeforeScenarioScope $scope
-     */
-    public function gatherContexts(BeforeScenarioScope $scope)
+    private $text;
+
+    public function setLoremIpsum($loremipsum)
     {
-        $environment = $scope->getEnvironment();
+        $this->loremipsum = $loremipsum;
+        return $this;
+    }
 
-        $this->featureContext = $environment->getContext('Suntransfers\BehatContext\Context\FeatureContext');
+    public function getLoremIpsum()
+    {
+        return $this->loremipsum;
     }
 
     public function setMail($mail)
@@ -67,9 +72,9 @@ class FilterContext implements Context
         return $this->name;
     }
 
-    public function setSurname($Surname)
+    public function setSurname($surname)
     {
-        $this->surname = $Surname;
+        $this->surname = $surname;
         return $this;
     }
 
@@ -78,9 +83,51 @@ class FilterContext implements Context
         return $this->surname;
     }
 
+    public function setNumber($number)
+    {
+        $this->number = $number;
+        return $this;
+    }
+
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    public function setText($text)
+    {
+        $this->text = $text;
+        return $this;
+    }
+
+    public function getText()
+    {
+        return $this->text;
+    }
+
     public function filterValue($value)
     {
         return (new FilterEngine())->filter($value);
+    }
+
+    /**
+     * @Then Fill :field with a random loremipsum
+     * @param $field
+     */
+    public function fillFieldWithRandomLoremIpsum($field)
+    {
+        $value = $this->filterValue('{RandomLoremIpsum}');
+        $this->setLoremIpsum($value);
+        $this->fillRandomField($field, $value);
+    }
+
+    /**
+     * @Then Fill :field with a existent loremipsum
+     * @param $field
+     */
+    public function fillFieldWithExistentLoremIpsum($field)
+    {
+        $this->fillRandomField($field, $this->getLoremIpsum());
     }
 
     /**
@@ -91,7 +138,7 @@ class FilterContext implements Context
     {
         $value = $this->filterValue('{RandomEmail}');
         $this->setMail($value);
-        $this->fillField($field, $value);
+        $this->fillRandomField($field, $value);
     }
 
     /**
@@ -100,7 +147,7 @@ class FilterContext implements Context
      */
     public function fillFieldWithExistentMail($field)
     {
-        $this->fillField($field, $this->getMail());
+        $this->fillRandomField($field, $this->getMail());
     }
 
     /**
@@ -111,7 +158,7 @@ class FilterContext implements Context
     {
         $value = $this->filterValue('{RandomPhone(9)}');
         $this->setPhone($value);
-        $this->fillField($field, $value);
+        $this->fillRandomField($field, $value);
     }
 
     /**
@@ -120,7 +167,7 @@ class FilterContext implements Context
      */
     public function fillFieldWithExistentPhone($field)
     {
-        $this->fillField($field, $this->getPhone());
+        $this->fillRandomField($field, $this->getPhone());
     }
 
     /**
@@ -131,7 +178,7 @@ class FilterContext implements Context
     {
         $value = $this->filterValue('{RandomName}');
         $this->setName($value);
-        $this->fillField($field, $value);
+        $this->fillRandomField($field, $value);
     }
 
     /**
@@ -140,7 +187,7 @@ class FilterContext implements Context
      */
     public function fillFieldWithExistentName($field)
     {
-        $this->fillField($field, $this->getName());
+        $this->fillRandomField($field, $this->getName());
     }
 
     /**
@@ -151,7 +198,7 @@ class FilterContext implements Context
     {
         $value = $this->filterValue('{RandomSurname}');
         $this->setSurname($value);
-        $this->fillField($field, $value);
+        $this->fillRandomField($field, $value);
     }
 
     /**
@@ -160,7 +207,47 @@ class FilterContext implements Context
      */
     public function fillFieldWithExistentSurname($field)
     {
-        $this->fillField($field, $this->getSurname());
+        $this->fillRandomField($field, $this->getSurname());
+    }
+
+    /**
+     * @Then Fill :field with a random number
+     * @param $field
+     */
+    public function fillFieldWithRandomNumber($field)
+    {
+        $value = $this->filterValue('{RandomNumber}');
+        $this->setNumber($value);
+        $this->fillRandomField($field, $value);
+    }
+
+    /**
+     * @Then Fill :field with a existent number
+     * @param $field
+     */
+    public function fillFieldWithExistentNumber($field)
+    {
+        $this->fillRandomField($field, $this->getNumber());
+    }
+
+    /**
+     * @Then Fill :field with a random text
+     * @param $field
+     */
+    public function fillFieldWithRandomText($field)
+    {
+        $value = $this->filterValue('{RandomText}');
+        $this->setText($value);
+        $this->fillRandomField($field, $value);
+    }
+
+    /**
+     * @Then Fill :field with a existent text
+     * @param $field
+     */
+    public function fillFieldWithExistentText($field)
+    {
+        $this->fillRandomField($field, $this->getText());
     }
 
     /**
@@ -173,7 +260,7 @@ class FilterContext implements Context
     public function assertFieldContainsValue($field, $value)
     {
         $value = $this->{$value};
-        return $this->featureContext->assertSession()->fieldValueEquals($field, $value);
+        return $this->assertSession()->fieldValueEquals($field, $value);
     }
 
     public function assertFieldValue($field, $value)
@@ -183,7 +270,7 @@ class FilterContext implements Context
 
     public function fieldValueEquals($field, $value)
     {
-        $container = $this->featureContext->getSession()->getPage()->findField($field);
+        $container = $this->getSession()->getPage()->findField($field);
         $actual = $container->getValue();
         $regex = '/^'.preg_quote($value, '/').'$/ui';
 
@@ -194,9 +281,9 @@ class FilterContext implements Context
      * @param $field
      * @param $value
      */
-    public function fillField($field, $value)
+    public function fillRandomField($field, $value)
     {
-        $this->featureContext->fillField($field, $this->filterValue($value));
+        $this->fillField($field, $this->filterValue($value));
     }
 
     /**
@@ -220,6 +307,6 @@ class FilterContext implements Context
      */
     public function iSelectOptionFrom($option, $select)
     {
-        $this->featureContext->getSession()->getPage()->selectFieldOption($select, $this->filterValue($option));
+        $this->getSession()->getPage()->selectFieldOption($select, $this->filterValue($option));
     }
 }

@@ -3,7 +3,6 @@
 namespace MinkFieldRandomizer\Filter;
 
 use Exception;
-use MinkFieldRandomizer\Registry\Registry;
 
 class FilterEngine
 {
@@ -55,15 +54,15 @@ class FilterEngine
                     $functionString = $matches['function'][$matchIndex];
                     $functionName = $this->getFunction($functionString);
                     $function = 'MinkFieldRandomizer\\Model\\' . $functionName;
-                    //if (!class_exists($function)) {
-                    //    $registry = Registry::getInstance();
-                    //    if (isset($registry[$functionName])) {
-                    //        return $registry[$functionName];
-                    //    };
-                    //    throw new Exception(
-                    //        "Function class $function unknown and not a value with such name found in the registry"
-                    //    );
-                    //}
+                    if (!class_exists($function)) {
+                        $registry = Registry::getInstance();
+                        if (isset($registry[$functionName])) {
+                            return $registry[$functionName];
+                        };
+                        throw new Exception(
+                            "Function class $function unknown and not a value with such name found in the registry"
+                        );
+                    }
                     $filter = new $function();
                     /* @var $filter FilterInterface */
                     $value.= $matches['prefix'][$matchIndex] . $filter->filter($this->getParams($functionString));

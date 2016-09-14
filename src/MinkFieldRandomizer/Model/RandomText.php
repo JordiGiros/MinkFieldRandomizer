@@ -24,7 +24,7 @@ class RandomText implements FilterInterface
         }
         $length = $params[0];
 
-        $chr = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $chr = '0123 456 789 abcdef ghij klmn opq rstu vwxyz ABCD EFG HIJKL MNOP QRST UVW XYZ ';
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $chr[rand(0, strlen($chr) - 1)];
