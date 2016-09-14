@@ -1,7 +1,8 @@
 {
     "autoload": {
         "psr-4": {
-            "MinkFieldRandomizer\\Filter\\": "src/MinkFieldRandomizer/Filter/"
+            "MinkFieldRandomizer\\Filter\\": "src/MinkFieldRandomizer/Filter/",
+            "MinkFieldRandomizer\\Context\\": "src/MinkFieldRandomizer/Context/"
         }
     },
     "name": "jordigiros/minkfieldrandomizer",
