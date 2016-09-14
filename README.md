@@ -102,44 +102,47 @@ It brings the option to customize some properties of the random values.
 List of the posible values that can be used
 
 #### Email
-{RandomEmail}
+ * {RandomEmail}
 
 RandomEmail does not accept parameters
 
 #### Name
-{RandomName}
+ * {RandomName}
 
 RandomName does not accept parameters
 
 #### Surname
-{RandomSurname}
+ * {RandomSurname}
 
 RandomSurname does not accept parameters
 
 #### Number
-{RandomNumber}
-{RandomNumber(N,M)}
+ * {RandomNumber}
+
+ * {RandomNumber(N,M)}
 
 RandomNumber accepts at most two parameters, returns a random number between the two given or between 0 and 9 if no params given.
 
 #### Phone
-{RandomPhone}
+ * {RandomPhone}
 
-{RandomPhone(N)}
+ * {RandomPhone(N)}
 
 RandomPhone accepts at most a parameter, the number of numbers in the string.
 If no parameter is given, it will return a 15 digits number.
 
 #### Text
-{RandomText}
-{RandomText(N)}
+ * {RandomText}
+
+ * {RandomText(N)}
 
 RandomText accepts at most a parameter, the number of characters in the string.
 If no parameter is given, it will return a 15 chars string.
 
 #### LoremIpsum
-{RandomLoremIpsum}
-{RandomLoremIpsum(N)}
+ * {RandomLoremIpsum}
+
+ * {RandomLoremIpsum(N)}
 
 RandomLoremIpsum accepts at most a parameter, the number of paragraphs in the string.
 If no parameter is given, it will return a 2 paragraphs string.
