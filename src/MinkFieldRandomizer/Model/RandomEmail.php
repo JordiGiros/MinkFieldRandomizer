@@ -25,6 +25,6 @@ class RandomEmail implements FilterInterface
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $chr[rand(0, strlen($chr) - 1)];
         }
-        return "Mail{$randomString}@suntransfers.com";
+        return "Mail{$randomString}@gmail.com";
     }
 }
