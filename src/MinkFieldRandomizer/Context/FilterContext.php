@@ -23,8 +23,6 @@ class FilterContext implements Context
 
     private $featureContext;
 
-    private $javascriptContext;
-
     /**
      * @BeforeScenario
      * @param BeforeScenarioScope $scope
@@ -34,7 +32,6 @@ class FilterContext implements Context
         $environment = $scope->getEnvironment();
 
         $this->featureContext = $environment->getContext('Suntransfers\BehatContext\Context\FeatureContext');
-        $this->javascriptContext  = $environment->getContext(JavascriptContext::class);
     }
 
     public function setMail($mail)
