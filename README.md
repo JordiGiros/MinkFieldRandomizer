@@ -2,6 +2,7 @@
 MinkFieldRandomizer is a random (with sense) information generator for filling browser form fields in Behat Mink Selenium tests. It brings the option to run your tests in a more realistic way changing the information you use to fill in the forms in every test you run.
 
 Status: v1.0. Working.
+Feel free to propose improvments.
 
 ## Add it using composer
 Add the next line in require-dev to your composer.json file:
@@ -61,8 +62,8 @@ Note: If you didn't generate the random information previously (Generate and fil
 Gherkin:
 ```javascript
 Then Fills in form fields with provided table
-	| "f_outbound_accommodation_name" | "{RandomText(10)}" |
-	| "f_outbound_accommodation_phone_number" | "{RandomText(9)}" |
+	| "f_outbound_accommodation_name" | "{RandomName}" |
+	| "f_outbound_accommodation_phone_number" | "{RandomNumber}" |
 	| "f_outbound_accommodation_address_1" | "{RandomText(10)}" |
 ````
 
@@ -70,8 +71,8 @@ PHP:
 ```javascript
 $hotel = new TableNode (
     array(
-        array("f_outbound_accommodation_name", "{RandomText(10)}"),
-        array("f_outbound_accommodation_phone_number", "{RandomText(9)}"),
+        array("f_outbound_accommodation_name", "{RandomName}"),
+        array("f_outbound_accommodation_phone_number", "{RandomNumber}"),
         array("f_outbound_accommodation_address_1", "{RandomText(10)}")
     )
 );
