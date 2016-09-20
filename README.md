@@ -154,3 +154,4 @@ If no parameter is given, it will return a 2 paragraphs string.
 # Copyright
 
 Copyright (c) 2016 Jordi Girós Guerrero. See LICENSE for details.
+Contributors: Jordi Bisbal.
