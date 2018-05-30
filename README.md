@@ -117,4 +117,4 @@ It brings the option to customize some properties of the random values.
 # Copyright
 
 Copyright (c) 2016 Jordi Girós Guerrero. See LICENSE for details.
-Contributors: Jordi Bisbal.
+Contributors: Jordi Bisbal, Alex Skrypnyk.
