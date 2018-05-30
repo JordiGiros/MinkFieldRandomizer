@@ -2,31 +2,42 @@
 
 namespace MinkFieldRandomizer\Filter;
 
-use Exception;
+use MinkFieldRandomizer\Registry\Registry;
 
 class FilterEngine
 {
-    /**
-     * @param $value
-     *
-     * @return array
-     */
-    private function getParams($value)
+
+    public function filter($value)
     {
         $matches = [];
-        $found = preg_match('/[^\(]*\((?<params>[^\)]*)\)/', $value, $matches);
-        if (!$found) {
-            return [];
+        if (preg_match_all('/(?P<prefix>[^{}]*)(?:{(?P<function>[^{}]+)})?/', $value, $matches)) {
+            $value = '';
+            for ($matchIndex = 0; $matchIndex < count($matches[0]); $matchIndex++) {
+                if (!empty($matches['function'][$matchIndex])) {
+                    $functionString = $matches['function'][$matchIndex];
+                    $functionName = $this->getFunction($functionString);
+                    $function = 'MinkFieldRandomizer\\Model\\'.$functionName;
+                    if (!class_exists($function)) {
+                        $registry = Registry::getInstance();
+                        if (isset($registry[$functionName])) {
+                            return $registry[$functionName];
+                        };
+                        throw new \Exception(sprintf('Function class "%s" unknown and not a value with such name found in the registry', $function));
+                    }
+                    $filter = new $function();
+                    /* @var $filter FilterInterface */
+                    $value .= $matches['prefix'][$matchIndex].$filter->filter($this->getParams($functionString));
+
+                    continue;
+                }
+
+                $value .= $matches['prefix'][$matchIndex];
+            }
         }
 
-        return explode(",", $matches['params']);
+        return $value;
     }
 
-    /**
-     * @param $value
-     *
-     * @return string
-     */
     private function getFunction($value)
     {
         $matches = [];
@@ -38,42 +49,14 @@ class FilterEngine
         return $matches[1];
     }
 
-    /**
-     * @param $value
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function filter($value)
+    private function getParams($value)
     {
         $matches = [];
-        if (preg_match_all('/(?P<prefix>[^{}]*)(?:{(?P<function>[^{}]+)})?/', $value, $matches)) {
-            $value = '';
-            for ($matchIndex = 0; $matchIndex < count($matches[0]); $matchIndex++) {
-                if (!empty($matches['function'][$matchIndex])) {
-                    $functionString = $matches['function'][$matchIndex];
-                    $functionName = $this->getFunction($functionString);
-                    $function = 'MinkFieldRandomizer\\Model\\' . $functionName;
-                    if (!class_exists($function)) {
-                        $registry = Registry::getInstance();
-                        if (isset($registry[$functionName])) {
-                            return $registry[$functionName];
-                        };
-                        throw new Exception(
-                            "Function class $function unknown and not a value with such name found in the registry"
-                        );
-                    }
-                    $filter = new $function();
-                    /* @var $filter FilterInterface */
-                    $value.= $matches['prefix'][$matchIndex] . $filter->filter($this->getParams($functionString));
-
-                    continue;
-                }
-
-                $value.= $matches['prefix'][$matchIndex];
-            }
+        $found = preg_match('/[^\(]*\((?<params>[^\)]*)\)/', $value, $matches);
+        if (!$found) {
+            return [];
         }
 
-        return $value;
+        return explode(",", $matches['params']);
     }
 }
