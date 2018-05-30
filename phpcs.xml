@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset name="c10r">
+    <description>PHPCS Standard for Mink Field Randomizer.
+    </description>
+
+    <rule ref="Symfony" />
+    <rule ref="PHPCompatibility"/>
+
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+    <!--Lint code against platform version specified in composer.json
+    key "config.platform.php".-->
+    <config name="testVersion" value="7.1"/>
+
+    <file>src</file>
+    <file>tests</file>
+
+    <!-- Exclude circleci config files. -->
+    <exclude-pattern>circle\.yml</exclude-pattern>
+    <exclude-pattern>\.circle\/config\.yml</exclude-pattern>
+
+    <!--Force short array syntax.-->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
+        <type>warning</type>
+    </rule>
+
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Symfony.Commenting.License.Warning">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Symfony.Commenting.ClassComment.Missing">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Symfony.Commenting.FunctionComment.Missing">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="Symfony.Commenting.FunctionComment.MissingParamTag">
+        <exclude-pattern>*Trait*</exclude-pattern>
+    </rule>
+    <rule ref="Symfony.Commenting.FunctionComment.MissingReturn">
+        <exclude-pattern>*Trait*</exclude-pattern>
+    </rule>
+    <rule ref="Symfony.Commenting.Annotations.Invalid">
+        <exclude-pattern>*Context*</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>tests\/.*</exclude-pattern>
+    </rule>
+</ruleset>
