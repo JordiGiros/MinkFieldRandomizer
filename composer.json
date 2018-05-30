@@ -17,7 +17,9 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
         "jakub-onderka/php-parallel-lint": "^1.0",
         "wimg/php-compatibility": "^8.1",
-        "escapestudios/symfony2-coding-standard": "^3.4"
+        "escapestudios/symfony2-coding-standard": "^3.4",
+        "integratedexperts/behat-phpserver": "^0.1.1",
+        "integratedexperts/behat-screenshot": "^0.7.2"
     },
     "autoload": {
         "psr-4": {
@@ -28,10 +30,18 @@
         }
     },
     "scripts": {
-        "fix": "phpcbf",
         "lint": [
             "phpcs",
-            "parallel-lint --exclude vendor --exclude -e src"
-        ]
+            "parallel-lint --exclude vendor --exclude -e src tests"
+        ],
+        "test": "behat --colors --format=progress",
+        "cleanup": "rm -Rf $(pwd)/vendor; rm composer.lock",
+        "docker:start": "docker-compose up -d --build",
+        "docker:restart": "docker-compose restart",
+        "docker:stop": "docker-compose stop",
+        "docker:destroy": "docker-compose down",
+        "docker:cli": "docker exec -i $(docker-compose ps -q phpserver)",
+        "docker:pull": "docker image ls --format \"{{.Repository}}:{{.Tag}}\" | grep amazeeio | grep -v none | xargs -n1 docker pull | cat",
+        "docker:logs": "docker-compose logs"
     }
 }

@@ -240,7 +240,7 @@ trait FieldRandomizerTrait
     /**
      * Checks, that form field with specified id|name|label|value has registered value.
      *
-     * @Then /^the "(?P<field>(?:[^"]|\\")*)" field should contains "(?P<value>(?:[^"]|\\")*)" value$/
+     * behat
      */
     public function frtAssertFieldContainsValue($field, $value)
     {
