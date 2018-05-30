@@ -1,4 +1,30 @@
 {
+    "name": "jordigiros/minkfieldrandomizer",
+    "description": "Random field filling generator for Behat/Mink/Selenium form tests",
+    "authors": [
+        {
+            "name": "jordigiros",
+            "email": "jordigiros@gmail.com"
+        },
+        {
+            "name": "Alex Skrypnyk",
+            "email": "alex.designworks@gmail.com"
+        }
+    ],
+    "require": {
+        "behat/behat": "~3.0",
+        "behat/mink-extension": "~2.0",
+        "behat/mink-goutte-driver": "1.2.x",
+        "behat/mink-selenium2-driver": "1.3.x"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "wimg/php-compatibility": "^8.1",
+        "escapestudios/symfony2-coding-standard": "^3.4",
+        "integratedexperts/behat-phpserver": "^0.1.1",
+        "integratedexperts/behat-screenshot": "^0.7.2"
+    },
     "autoload": {
         "psr-4": {
             "MinkFieldRandomizer\\Filter\\": "src/MinkFieldRandomizer/Filter/",
@@ -7,22 +33,19 @@
             "MinkFieldRandomizer\\Registry\\": "src/MinkFieldRandomizer/Registry/"
         }
     },
-    "name": "jordigiros/minkfieldrandomizer",
-    "description": "Random field filling generator for Behat/Mink/Selenium form tests",
-    "authors": [
-        {
-            "name": "jordigiros",
-            "email": "jordigiros@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "behat/behat": "~3.0",
-        "behat/mink-extension": "~2.0",
-        "behat/mink-goutte-driver": "1.2.x",
-        "behat/mink-selenium2-driver": "1.3.x"
-    },
-    "config": {
-        "bin-dir": "bin"
+    "scripts": {
+        "lint": [
+            "phpcs",
+            "parallel-lint --exclude vendor --exclude -e src tests"
+        ],
+        "test": "behat --colors --format=progress",
+        "cleanup": "rm -Rf $(pwd)/vendor; rm composer.lock",
+        "docker:start": "docker-compose up -d --build",
+        "docker:restart": "docker-compose restart",
+        "docker:stop": "docker-compose stop",
+        "docker:destroy": "docker-compose down",
+        "docker:cli": "docker exec -i $(docker-compose ps -q phpserver)",
+        "docker:pull": "docker image ls --format \"{{.Repository}}:{{.Tag}}\" | grep amazeeio | grep -v none | xargs -n1 docker pull | cat",
+        "docker:logs": "docker-compose logs"
     }
 }
