@@ -3,6 +3,8 @@
 It brings the option to run your tests in a more realistic way changing the information you use to fill in the forms 
 in every test you run.
 
+[![CircleCI](https://circleci.com/gh/integratedexperts/MinkFieldRandomizer.svg?style=shield)](https://circleci.com/gh/integratedexperts/MinkFieldRandomizer)
+
 ## Installing with Composer
 ```
 composer require jordigiros/MinkFieldRandomizer
