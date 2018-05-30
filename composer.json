@@ -1,24 +1,37 @@
 {
-  "name": "jordigiros/minkfieldrandomizer",
-  "description": "Random field filling generator for Behat/Mink/Selenium form tests",
-  "authors": [
-    {
-      "name": "jordigiros",
-      "email": "jordigiros@gmail.com"
+    "name": "jordigiros/minkfieldrandomizer",
+    "description": "Random field filling generator for Behat/Mink/Selenium form tests",
+    "authors": [
+        {
+            "name": "jordigiros",
+            "email": "jordigiros@gmail.com"
+        }
+    ],
+    "require": {
+        "behat/behat": "~3.0",
+        "behat/mink-extension": "~2.0",
+        "behat/mink-goutte-driver": "1.2.x",
+        "behat/mink-selenium2-driver": "1.3.x"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+        "jakub-onderka/php-parallel-lint": "^1.0",
+        "wimg/php-compatibility": "^8.1",
+        "escapestudios/symfony2-coding-standard": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "MinkFieldRandomizer\\Filter\\": "src/MinkFieldRandomizer/Filter/",
+            "MinkFieldRandomizer\\Context\\": "src/MinkFieldRandomizer/Context/",
+            "MinkFieldRandomizer\\Model\\": "src/MinkFieldRandomizer/Model/",
+            "MinkFieldRandomizer\\Registry\\": "src/MinkFieldRandomizer/Registry/"
+        }
+    },
+    "scripts": {
+        "fix": "phpcbf",
+        "lint": [
+            "phpcs",
+            "parallel-lint --exclude vendor --exclude -e src"
+        ]
     }
-  ],
-  "require": {
-    "behat/behat": "~3.0",
-    "behat/mink-extension": "~2.0",
-    "behat/mink-goutte-driver": "1.2.x",
-    "behat/mink-selenium2-driver": "1.3.x"
-  },
-  "autoload": {
-    "psr-4": {
-      "MinkFieldRandomizer\\Filter\\": "src/MinkFieldRandomizer/Filter/",
-      "MinkFieldRandomizer\\Context\\": "src/MinkFieldRandomizer/Context/",
-      "MinkFieldRandomizer\\Model\\": "src/MinkFieldRandomizer/Model/",
-      "MinkFieldRandomizer\\Registry\\": "src/MinkFieldRandomizer/Registry/"
-    }
-  }
 }
