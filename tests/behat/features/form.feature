@@ -1,9 +1,10 @@
-Feature: HTML screenshots
+Feature: Random values for form elements
 
-  Ensure that screenshots for HTML-base driver can be captured.
+  As a Behat extension developer I want to know that field randomisation step
+  definitions provided by this extension indeed work.
 
   @phpserver
-  Scenario: Capture a screenshot using HTML-based driver
+  Scenario: Fill field types with random data
     Given I am on the test page
     And the response status code should be 200
     And the "field1" field should contain ""
@@ -69,6 +70,13 @@ Feature: HTML screenshots
     Then I see fields "field1" and "field3" contain the same values
     Then I see fields "field2" and "field3" contain the same values
 
+    When I fill in "textarea1" with a random text
+    And  I fill in "textarea2" with an existent text
+    And  I fill in "textarea3" with an existent text
+    Then I see fields "textarea1" and "textarea2" contain the same values
+    Then I see fields "textarea1" and "textarea3" contain the same values
+    Then I see fields "textarea2" and "textarea3" contain the same values
+
     When I fill in fields with provided table:
       | field1 | {RandomEmail} |
     Then the "field1" field should not contain ""
@@ -104,3 +112,23 @@ Feature: HTML screenshots
     When I fill in fields with provided table:
       | field1 | {RandomLoremIpsum} |
     Then the "field1" field should not contain ""
+
+    And I should not see an "select[name='select1'] option[selected='selected']" element
+    And I should not see an "select[name='select2'] option[selected='selected']" element
+    When I select random value from "Select 1" field
+    And save screenshot
+    And I press "Submit"
+    And save screenshot
+    And I should see an "select[name='select1'] option[selected='selected']" element
+    And I should not see an "select[name='select2'] option[selected='selected']" element
+    And save screenshot
+
+    And the "radio1" field should contain ""
+    And the "radio2" field should contain ""
+    When I check random radio from "Radio 1" field
+    And save screenshot
+    And I press "Submit"
+    And the "radio1" field should not contain ""
+    And the "radio2" field should contain ""
+    And save screenshot
+

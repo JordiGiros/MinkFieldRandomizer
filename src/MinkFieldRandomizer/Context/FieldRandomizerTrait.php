@@ -238,6 +238,82 @@ trait FieldRandomizerTrait
     }
 
     /**
+     * @When /^(?:|I )select random value from "(?P<field>(?:[^"]|\\")*)" field$/
+     */
+    public function frtSelectRandomValue($field)
+    {
+        $field = $this->fixStepArgument($field);
+
+        /** @var \Behat\Mink\Element\DocumentElement $page */
+        $page = $this->getSession()->getPage();
+
+        /** @var \Behat\Mink\Element\NodeElement $select */
+        $select = $page->findField($field);
+        if (!$select) {
+            throw new \Exception(sprintf('Unable to find field "%s"', $field));
+        }
+
+        /** @var \Behat\Mink\Element\NodeElement [] $options */
+        $options = $select->findAll('css', 'option');
+        $optionValues = [];
+        foreach ($options as $option) {
+            if ($option->isSelected()) {
+                continue;
+            }
+            $optionValues[] = $option->getValue();
+        }
+
+        shuffle($optionValues);
+        $optionValue = reset($optionValues);
+
+        $page->selectFieldOption($field, $optionValue);
+    }
+
+    /**
+     * Select random radio value for field labeled with <label>.
+     *
+     * @When /^(?:|I )check random radio from "(?P<label>(?:[^"]|\\")*)" field$/
+     */
+    public function frtCheckRandomRadioValue($labelText)
+    {
+        $labelText = $this->fixStepArgument($labelText);
+
+        /** @var \Behat\Mink\Element\DocumentElement $page */
+        $page = $this->getSession()->getPage();
+
+        /** @var \Behat\Mink\Element\NodeElement [] $radios */
+        $radios = $page->findAll('css', 'input[type="radio"]');
+
+        $filteredRadios = [];
+        foreach ($radios as $radio) {
+            $id = $radio->getAttribute('id');
+            $name = $radio->getAttribute('name');
+            /** @var \Behat\Mink\Element\NodeElement [] $labelsFromIds */
+            $labelsFromIds = $page->findAll('css', 'label[for="'.$id.'"]');
+            /** @var \Behat\Mink\Element\NodeElement [] $labelsFromNames */
+            $labelsFromNames = $page->findAll('css', 'label[for="'.$name.'"]');
+            /** @var \Behat\Mink\Element\NodeElement [] $labels */
+            $labels = array_merge($labelsFromIds, $labelsFromNames);
+            foreach ($labels as $label) {
+                if ($label->getText() === $labelText) {
+                    $filteredRadios[] = $radio;
+                    continue;
+                }
+            }
+        }
+
+        if (empty($filteredRadios)) {
+            throw new \Exception("No matching radios were found for label with text {$labelText}");
+        }
+
+        shuffle($filteredRadios);
+        /** @var \Behat\Mink\Element\NodeElement $radio */
+        $radio = reset($filteredRadios);
+
+        $page->selectFieldOption($radio->getAttribute('id'), $radio->getAttribute('value'));
+    }
+
+    /**
      * Checks, that form field with specified id|name|label|value has registered value.
      *
      * behat
@@ -267,6 +343,78 @@ trait FieldRandomizerTrait
         foreach ($fields->getRowsHash() as $field => $value) {
             $this->frtFillRandomField($field, $value);
         }
+    }
+
+    /**
+     * Fills in form fields with provided table.
+     *
+     * @When I fill in fields with random values:
+     *
+     * @example
+     * When I fill in fields with random values:
+     *   | Field 1  | text   |
+     *   | Select 1 | select |
+     *   | Radio 1  | radio  |
+     */
+    public function frtFillRandomFields(TableNode $fields)
+    {
+        foreach ($fields->getRowsHash() as $field => $type) {
+            $field = $this->fixStepArgument($field);
+            if (empty($type)) {
+                $type = $this->frtGuessFieldType($field);
+            }
+
+            switch ($type) {
+                case 'text':
+                case 'textarea':
+                    $value = '{RandomText}';
+                    $this->frtFillRandomField($field, $value);
+                    break;
+
+                case 'select':
+                    $this->frtSelectRandomValue($field);
+                    break;
+
+                case 'radio':
+                    $this->frtCheckRandomRadioValue($field);
+                    break;
+
+                default:
+                    throw new \RuntimeException(sprintf('Provided type "%s" for field "%s" is not supported', $type, $field));
+            }
+        }
+    }
+
+    protected function frtGuessFieldType($field)
+    {
+        /** @var \Behat\Mink\Element\DocumentElement $page */
+        $page = $this->getSession()->getPage();
+        $found = $page->findField($field);
+        if (!$found) {
+            throw new \Exception(sprintf('Unable to find field "%s"', $field));
+        }
+
+        $tag = $found->getTagName();
+        switch ($tag) {
+            case 'input':
+                $type = $found->getAttribute('type');
+                break;
+
+            case 'textarea':
+            case 'select':
+                $type = $tag;
+                break;
+
+            default:
+                throw new \Exception(sprintf('Unsupported tag "%s" for a filed provided whet trying to guess type for field "%s"', $tag, $field));
+        }
+
+
+        if (empty($type)) {
+            throw new \Exception(sprintf('Unable to guess type for field "%s"', $field));
+        }
+
+        return $type;
     }
 
     protected function frtAssertFieldValue($field, $value)
