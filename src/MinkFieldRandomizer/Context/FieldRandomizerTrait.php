@@ -359,8 +359,14 @@ trait FieldRandomizerTrait
     public function frtFillRandomFields(TableNode $fields)
     {
         foreach ($fields->getRowsHash() as $field => $type) {
+            $field = $this->fixStepArgument($field);
+            if (empty($type)) {
+                $type = $this->frtGuessFieldType($field);
+            }
+
             switch ($type) {
                 case 'text':
+                case 'textarea':
                     $value = '{Random'.ucfirst($type).'}';
                     $this->frtFillRandomField($field, $value);
                     break;
@@ -375,6 +381,38 @@ trait FieldRandomizerTrait
                     throw new \RuntimeException(sprintf('Provided type "%s" for field "%s" is not supported', $type, $field));
             }
         }
+    }
+
+    protected function frtGuessFieldType($field)
+    {
+        /** @var \Behat\Mink\Element\DocumentElement $page */
+        $page = $this->getSession()->getPage();
+        $found = $page->findField($field);
+        if (!$found) {
+            throw new \Exception(sprintf('Unable to find field "%s"', $field));
+        }
+
+        $tag = $found->getTagName();
+        switch ($tag) {
+            case 'input':
+                $type = $found->getAttribute('type');
+                break;
+
+            case 'textarea':
+            case 'select':
+                $type = $tag;
+                break;
+
+            default:
+                throw new \Exception(sprintf('Unsupported tag "%s" for a filed provided whet trying to guess type for field "%s"', $tag, $field));
+        }
+
+
+        if (empty($type)) {
+            throw new \Exception(sprintf('Unable to guess type for field "%s"', $field));
+        }
+
+        return $type;
     }
 
     protected function frtAssertFieldValue($field, $value)
