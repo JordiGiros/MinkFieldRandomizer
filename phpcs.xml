@@ -39,6 +39,7 @@
     </rule>
     <rule ref="Symfony.Commenting.FunctionComment.MissingParamTag">
         <exclude-pattern>*Trait*</exclude-pattern>
+        <exclude-pattern>*Context*</exclude-pattern>
     </rule>
     <rule ref="Symfony.Commenting.FunctionComment.MissingReturn">
         <exclude-pattern>*Trait*</exclude-pattern>

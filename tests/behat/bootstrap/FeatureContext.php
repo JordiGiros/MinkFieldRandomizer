@@ -25,7 +25,7 @@ class FeatureContext extends MinkContext implements Context
      */
     public function goToTestPage()
     {
-        $this->visitPath('form.html');
+        $this->visitPath('form.php');
     }
 
     /**
@@ -53,5 +53,23 @@ class FeatureContext extends MinkContext implements Context
         if ($value1 !== $value2) {
             throw new \Exception(sprintf('Value from first field "%s" is not equal to value from second field "%s"', $value1, $value2));
         }
+    }
+
+    /**
+     * @When /^I check the "([^"]*)" radio button$/
+     */
+    public function iCheckTheRadioButton($labelText)
+    {
+        $page = $this->getSession()->getPage();
+        $radioButton = $page->find('named', ['radio', $labelText]);
+        if ($radioButton) {
+            $select = $radioButton->getAttribute('name');
+            $option = $radioButton->getAttribute('value');
+            $page->selectFieldOption($select, $option);
+
+            return;
+        }
+
+        throw new \Exception("Radio button with label {$labelText} not found");
     }
 }

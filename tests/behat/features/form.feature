@@ -104,3 +104,23 @@ Feature: HTML screenshots
     When I fill in fields with provided table:
       | field1 | {RandomLoremIpsum} |
     Then the "field1" field should not contain ""
+
+    And I should not see an "select[name='select1'] option[selected='selected']" element
+    And I should not see an "select[name='select2'] option[selected='selected']" element
+    When I select random value from "Select 1" field
+    And save screenshot
+    And I press "Submit"
+    And save screenshot
+    And I should see an "select[name='select1'] option[selected='selected']" element
+    And I should not see an "select[name='select2'] option[selected='selected']" element
+    And save screenshot
+
+    And the "radio1" field should contain ""
+    And the "radio2" field should contain ""
+    When I check random radio from "Radio 1" field
+    And save screenshot
+    And I press "Submit"
+    And the "radio1" field should not contain ""
+    And the "radio2" field should contain ""
+    And save screenshot
+

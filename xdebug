@@ -1,0 +1,3 @@
+#!/bin/sh
+# Usage example: ./xdebug composer c10r
+env XDEBUG_CONFIG="idekey=PHPSTORM" COMPOSER_ALLOW_XDEBUG=1 COMPOSER_DISABLE_XDEBUG_WARN=1 $@
