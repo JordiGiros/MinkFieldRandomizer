@@ -1,9 +1,10 @@
-Feature: HTML screenshots
+Feature: Random values for form elements
 
-  Ensure that screenshots for HTML-base driver can be captured.
+  As a Behat extension developer I want to know that field randomisation step
+  definitions provided by this extension indeed work.
 
   @phpserver
-  Scenario: Capture a screenshot using HTML-based driver
+  Scenario: Fill field types with random data
     Given I am on the test page
     And the response status code should be 200
     And the "field1" field should contain ""

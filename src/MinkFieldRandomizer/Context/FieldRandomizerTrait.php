@@ -345,6 +345,38 @@ trait FieldRandomizerTrait
         }
     }
 
+    /**
+     * Fills in form fields with provided table.
+     *
+     * @When I fill in fields with random values:
+     *
+     * @example
+     * When I fill in fields with random values:
+     *   | Field 1  | text   |
+     *   | Select 1 | select |
+     *   | Radio 1  | radio  |
+     */
+    public function frtFillRandomFields(TableNode $fields)
+    {
+        foreach ($fields->getRowsHash() as $field => $type) {
+            switch ($type) {
+                case 'text':
+                    $value = '{Random'.ucfirst($type).'}';
+                    $this->frtFillRandomField($field, $value);
+                    break;
+                case 'select':
+                    $this->frtSelectRandomValue($field);
+                    break;
+                case 'radio':
+                    $this->frtCheckRandomRadioValue($field);
+                    break;
+
+                default:
+                    throw new \RuntimeException(sprintf('Provided type "%s" for field "%s" is not supported', $type, $field));
+            }
+        }
+    }
+
     protected function frtAssertFieldValue($field, $value)
     {
         return $this->fieldValueEquals($field, $value);
