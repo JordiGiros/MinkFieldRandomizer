@@ -42,6 +42,21 @@ Test page
     </div>
 
     <div>
+        <label for="textarea1">Text area 1</label>
+        <textarea name="textarea1" id="textarea1" cols="30" rows="10"><?php print !empty($_POST['textarea1']) ? $_POST['textarea1'] : ''; ?></textarea>
+    </div>
+
+    <div>
+        <label for="textarea2">Text area 2</label>
+        <textarea name="textarea2" id="textarea2" cols="30" rows="10"><?php print !empty($_POST['textarea2']) ? $_POST['textarea2'] : ''; ?></textarea>
+    </div>
+
+    <div>
+        <label for="textarea3">Text area 3</label>
+        <textarea name="textarea3" id="textarea3" cols="30" rows="10"><?php print !empty($_POST['textarea3']) ? $_POST['textarea3'] : ''; ?></textarea>
+    </div>
+
+    <div>
         <label for="select1">Select 1</label> <select name="select1"
                 id="select1">
             <option value="_">-NONE-</option>

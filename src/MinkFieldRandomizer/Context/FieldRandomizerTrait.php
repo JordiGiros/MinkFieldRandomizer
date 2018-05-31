@@ -367,12 +367,14 @@ trait FieldRandomizerTrait
             switch ($type) {
                 case 'text':
                 case 'textarea':
-                    $value = '{Random'.ucfirst($type).'}';
+                    $value = '{RandomText}';
                     $this->frtFillRandomField($field, $value);
                     break;
+
                 case 'select':
                     $this->frtSelectRandomValue($field);
                     break;
+
                 case 'radio':
                     $this->frtCheckRandomRadioValue($field);
                     break;

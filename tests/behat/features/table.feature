@@ -15,9 +15,10 @@ Feature: Random values for form elements as a table
     And the "radio2" field should contain ""
 
     When I fill in fields with random values:
-      | Field 1  | text   |
-      | Select 1 | select |
-      | Radio 1  | radio  |
+      | Field 1     | text     |
+      | Text area 1 | textarea |
+      | Select 1    | select   |
+      | Radio 1     | radio    |
 
     And save screenshot
     And I press "Submit"
@@ -30,7 +31,7 @@ Feature: Random values for form elements as a table
     And the "radio2" field should contain ""
 
 
-  @phpserver @wip
+  @phpserver
   Scenario: Fill field types with random values in table format with auto-type
     Given I am on the test page
     And the response status code should be 200
@@ -42,9 +43,10 @@ Feature: Random values for form elements as a table
     And the "radio2" field should contain ""
 
     When I fill in fields with random values:
-      | Field 1  |
-      | Select 1 |
-      | Radio 1  |
+      | Field 1     |
+      | Text area 1 |
+      | Select 1    |
+      | Radio 1     |
 
     And save screenshot
     And I press "Submit"

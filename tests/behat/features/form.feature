@@ -70,6 +70,13 @@ Feature: Random values for form elements
     Then I see fields "field1" and "field3" contain the same values
     Then I see fields "field2" and "field3" contain the same values
 
+    When I fill in "textarea1" with a random text
+    And  I fill in "textarea2" with an existent text
+    And  I fill in "textarea3" with an existent text
+    Then I see fields "textarea1" and "textarea2" contain the same values
+    Then I see fields "textarea1" and "textarea3" contain the same values
+    Then I see fields "textarea2" and "textarea3" contain the same values
+
     When I fill in fields with provided table:
       | field1 | {RandomEmail} |
     Then the "field1" field should not contain ""
