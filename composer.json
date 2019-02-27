@@ -27,10 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "MinkFieldRandomizer\\Filter\\": "src/MinkFieldRandomizer/Filter/",
-            "MinkFieldRandomizer\\Context\\": "src/MinkFieldRandomizer/Context/",
-            "MinkFieldRandomizer\\Model\\": "src/MinkFieldRandomizer/Model/",
-            "MinkFieldRandomizer\\Registry\\": "src/MinkFieldRandomizer/Registry/"
+            "MinkFieldRandomizer\\": "src/MinkFieldRandomizer/"
         }
     },
     "scripts": {
