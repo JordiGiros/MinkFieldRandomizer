@@ -1,0 +1,5 @@
+services:
+  transformation.argument_transformer.minkfieldrandomizer:
+    class: MinkFieldRandomizer\Transformation\Argument
+    tags:
+      -  { name: transformation.argument_transformer, priority: 100 }
