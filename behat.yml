@@ -11,6 +11,7 @@ default:
         - IntegratedExperts\BehatScreenshotExtension\Context\ScreenshotContext
         - FeatureContext
   extensions:
+    MinkFieldRandomizer\Extension: ~
     Behat\MinkExtension:
       goutte: ~
       files_path: "%paths.base%/tests/behat/fixtures"
