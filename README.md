@@ -105,7 +105,7 @@ It brings the option to customize some properties of the random values.
 
 | Name          | Value                                             | Comment                               |
 |---------------|---------------------------------------------------|---------------------------------------|
-|`Email`        |`{RandomEmail}`<br/>`{RandomEmail(domain`          |RandomEmail accepts at most a parameter, the domain for the random email address - if none is given gmail.com is provided.|
+|`Email`        |`{RandomEmail}`<br/>`{RandomEmail(domain)}`          |RandomEmail accepts at most a parameter, the domain for the random email address - if none is given gmail.com is provided.|
 |`Name`         |`{RandomName}`                                     |RandomName does not accept parameters  |
 |`Surname`      |`{RandomSurname}`                                  |RandomSurname does not accept parameters|
 |`Number`       |`{RandomNumber}`<br/>`{RandomNumber(N,M)}`         |RandomNumber accepts at most two parameters, returns a random number between the two given or between 0 and 9 if no params given.|
