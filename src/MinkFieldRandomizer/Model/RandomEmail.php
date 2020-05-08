@@ -20,6 +20,7 @@ class RandomEmail implements FilterInterface
 
         $chr = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randomString = '';
+        
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $chr[rand(0, strlen($chr) - 1)];
         }
