@@ -18,9 +18,9 @@
         "behat/mink-selenium2-driver": "1.3.x"
     },
     "require-dev": {
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5",
         "jakub-onderka/php-parallel-lint": "^1.0",
-        "wimg/php-compatibility": "^8.1",
+        "phpcompatibility/php-compatibility": "^9.0",
         "escapestudios/symfony2-coding-standard": "^3.4",
         "integratedexperts/behat-phpserver": "^0.1.1",
         "integratedexperts/behat-screenshot": "^0.7.2"
