@@ -72,35 +72,88 @@ Feature: HTML screenshots
     When I fill in fields with provided table:
       | field1 | {RandomEmail} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomEmail}"
 
     When I fill in fields with provided table:
       | field1 | {RandomName} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomName}"
 
     When I fill in fields with provided table:
       | field1 | {RandomSurname} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomSurname}"
 
     When I fill in fields with provided table:
       | field1 | {RandomNumber} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomNumber}"
 
     When I fill in fields with provided table:
       | field1 | {RandomNumber(2,4)} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomNumber(2,4)}"
 
     When I fill in fields with provided table:
       | field1 | {RandomPhone} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomPhone}"
 
     When I fill in fields with provided table:
       | field1 | {RandomPhone(13)} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomPhone(13)}"
 
     When I fill in fields with provided table:
       | field1 | {RandomText} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomText}"
 
     When I fill in fields with provided table:
       | field1 | {RandomLoremIpsum} |
     Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomLoremIpsum}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomEmail}"
+    Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomEmail}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomName}"
+    Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomName}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomSurname}"
+    Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomSurname}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomNumber}"
+    Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomNumber}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomNumber(2,4)}"
+    Then the "field1" field should not match "RandomNumber(2,4)}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomPhone}"
+    Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomPhone}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomPhone(13)}"
+    Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomPhone(13)}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomText}"
+    Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomText}"
+
+    When I fill in "field1" with ""
+    When I fill in "field1" with "{RandomLoremIpsum}"
+    Then the "field1" field should not contain ""
+    Then the "field1" field should not match "RandomLoremIpsum}"

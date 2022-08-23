@@ -15,7 +15,7 @@ class Argument implements ArgumentTransformer
 
     const SLOT_NAME_OPEN = '{';
     const SLOT_NAME_CLOSE = '}';
-    const SLOT_NAME_REGEX = '#{([a-z0-9\(\)\.-]\w*)}#i';
+    const SLOT_NAME_REGEX = '#{([a-z0-9\(\)\.,-]+\w*)}#i';
 
     protected $context;
     protected $matches;
