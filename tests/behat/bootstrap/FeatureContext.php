@@ -6,6 +6,7 @@
  */
 
 use Behat\Behat\Context\Context;
+use Behat\Mink\Exception\ExpectationException;
 use Behat\MinkExtension\Context\MinkContext;
 use MinkFieldRandomizer\Context\FieldRandomizerTrait;
 
@@ -52,6 +53,27 @@ class FeatureContext extends MinkContext implements Context
 
         if ($value1 !== $value2) {
             throw new \Exception(sprintf('Value from first field "%s" is not equal to value from second field "%s"', $value1, $value2));
+        }
+    }
+
+    /**
+     * Checks, that form field with specified id|name|label|value doesn't have a value matching anoter value.
+     * Example: Then the "username" field should not match "batman"
+     * Example: And the "username" field should not match "batman"
+     *
+     * @Then /^the "(?P<field>(?:[^"]|\\")*)" field should not match "(?P<value>(?:[^"]|\\")*)"$/
+     */
+    public function assertFieldNotMatches($field, $value)
+    {
+        $field = $this->fixStepArgument($field);
+        $value = $this->fixStepArgument($value);
+
+        $assertSession = $this->assertSession();
+        $node = $assertSession->fieldExists($field);
+        $actual = $node->getValue();
+        $message = sprintf('The field "%s" value "%s" has a match for "%s", but it should not.', $field, $actual, $value);
+        if (strpos($actual, $value) !== false) {
+            throw new ExpectationException($message, $this->getSession()->getDriver());
         }
     }
 }
